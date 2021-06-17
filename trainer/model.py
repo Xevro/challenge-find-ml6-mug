@@ -6,7 +6,7 @@ This file contains all the model information: the training steps, the batch
 size and the model itself.
 """
 
-BATCH_SIZE = 50
+BATCH_SIZE = 32
 NUM_TRAINING_STEPS = 10 #20000
 
 
@@ -49,20 +49,85 @@ def solution(input_layer):
 
     # TODO: Code of your solution
         
-    model = Sequential()
+    #model = Sequential()
     #model.add(Conv2D(filters=16, kernel_size=(4, 4), activation="relu", input_shape=(64, 64, 3)))
-    model.add(Flatten(input_shape=(64, 64, 3))) 
-    model.add(Dense(16, activation=layers.LeakyReLU(alpha=0.3))) 
-    model.add(Dropout(0.6))
-    model.add(Dense(32, activation=layers.LeakyReLU(alpha=0.3))) 
-    model.add(Dropout(0.5))
-    model.add(Dense(64, activation=layers.LeakyReLU(alpha=0.3))) 
-    model.add(Dropout(0.3))
+    
+    #model.add(Flatten(input_shape=(64, 64, 3))) 
+    #model.add(Dense(64, activation="relu")) 
+
+    #model.add(Dropout(0.6))
+    #model.add(Dense(32, activation=layers.LeakyReLU(alpha=0.3))) 
+    #model.add(Dropout(0.5))
+    #model.add(Dense(64, activation=layers.LeakyReLU(alpha=0.3))) 
+    #model.add(Dropout(0.3))
     #model.add(Flatten())
+    
+    #model.add(Dense(4, activation='softmax'))
+
+    """model = Sequential()
+    model.add(layers.Conv2D(64, (3, 3), activation='relu', input_shape=(64, 64, 3)))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(Dropout(0.3))
+    model.add(layers.Conv2D(128, (3, 3), activation='relu'))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(Dropout(0.3))
+    model.add(layers.Conv2D(256, (3, 3), activation='relu'))
+    
+    model.add(layers.Flatten())
+    model.add(layers.Dense(512, activation='relu'))
+    model.add(layers.Dense(4, activation='softmax'))
+    """
+
+    """model = Sequential([
+      layers.Conv2D(64, (3, 3), activation='relu', input_shape=(64, 64, 3)),
+      layers.Conv2D(32, 3, padding='same', activation='relu'),
+      layers.MaxPooling2D((2, 2)),
+      layers.Conv2D(64, 3, padding='same', activation='relu'),
+      layers.MaxPooling2D((2, 2)),
+      #layers.Conv2D(64, 3, padding='same', activation='relu'),
+      #layers.MaxPooling2D((2, 2)),
+      layers.Flatten(),
+      layers.Dense(128, activation='relu'),
+      layers.Dense(4, activation='softmax')
+    ])"""
+
+    """model = tf.keras.models.Sequential([
+    tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(64, 64, 3)),
+    tf.keras.layers.MaxPooling2D(2, 2),
+
+    tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
+    tf.keras.layers.MaxPooling2D(2, 2),
+
+    tf.keras.layers.Conv2D(128, c, activation='relu'),
+    tf.keras.layers.MaxPooling2D(2, 2),
+
+    tf.keras.layers.Conv2D(128, (3, 3), activation='relu'),
+    tf.keras.layers.MaxPooling2D(2, 2),
+
+    tf.keras.layers.Dropout(0.5),
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(256, activation='relu'),
+    tf.keras.layers.Dense(4, activation='softmax')])"""
+
+    model = Sequential()
+
+    model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(64, 64, 3)))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+
+    model.add(Conv2D(64, (3, 3), activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+
+    model.add(Conv2D(128, (3, 3), activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+
+    model.add(Flatten())
+    model.add(Dense(256, activation='relu'))
+    model.add(Dropout(0.3))
     model.add(Dense(4, activation='softmax'))
 
-    model.compile(optimizer='adam', loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True), metrics=['accuracy'])
 
+    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+    #model.compile(optimizer='adam', loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True), metrics=['accuracy'])
     # TODO: Return the compiled model
     return model
 
