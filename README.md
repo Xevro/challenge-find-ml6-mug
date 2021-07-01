@@ -1,3 +1,7 @@
+# ML6 Mug Challenge
+
+```Score: 84.5%``` 
+
 Hello potential ML6 colleague!
 
 If you are reading this, you are probably applying for a Machine Learning engineering job at ML6. This test will evaluate if you have the right skills for the job.
